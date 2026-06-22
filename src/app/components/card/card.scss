@@ -1,0 +1,91 @@
+/* Card Component Styles */
+/* Demonstrates: Flexbox, Border radius, Box shadow, Hover effects, Transitions */
+
+.card {
+  /* Flexbox column layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 180px;
+  background: white;
+  
+  /* Hover effects */
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(-4px);
+  }
+}
+
+/* Color variants */
+.card-blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.card-green {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.card-orange {
+  background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+  color: white;
+}
+
+.card-header {
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.card-amount {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.card-footer {
+  text-align: center;
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+.card-hint {
+  opacity: 0.7;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .card {
+    min-height: 150px;
+    padding: 1.5rem;
+    
+    .card-amount {
+      font-size: 2rem;
+    }
+  }
+}

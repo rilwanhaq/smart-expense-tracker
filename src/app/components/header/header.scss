@@ -1,0 +1,80 @@
+/* Header Component Styles */
+/* Demonstrates: Flexbox, Box shadow, Border radius, Responsive design */
+
+.header {
+  /* Flexbox container for horizontal layout */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-container {
+  /* Flexbox layout: space between logo and user info */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  
+  /* Responsive: stack vertically on mobile */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.header-logo {
+  /* Flexbox for logo and title alignment */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  
+  .logo-icon {
+    font-size: 2rem;
+    animation: spin 3s linear infinite;
+  }
+  
+  .app-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}
+
+.header-info {
+  /* Flexbox for user info and date alignment */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  
+  /* Responsive: align left on mobile */
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    opacity: 0.95;
+  }
+  
+  .current-date {
+    opacity: 0.85;
+    font-size: 0.9rem;
+  }
+}
+
+/* Animation for logo spinning effect */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

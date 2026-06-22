@@ -1,0 +1,233 @@
+/* Dashboard Component Styles */
+/* Demonstrates: CSS Grid, Flexbox, Box shadow, Responsive design, Transitions */
+
+.dashboard {
+  /* Flexbox container for vertical sections */
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 2rem;
+  background: #f5f7fa;
+  flex-grow: 1;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+}
+
+/* Section styling */
+.cards-section,
+.search-section,
+.transactions-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3436;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+/* Cards Grid */
+.cards-grid {
+  /* CSS Grid: 3 columns on desktop */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  
+  /* Responsive: 1 column on mobile, 2 on tablet */
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Selected card info */
+.selected-card-info {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-left: 4px solid #667eea;
+  border-radius: 8px;
+  color: #2d3436;
+  font-weight: 600;
+  animation: slideInUp 0.3s ease;
+}
+
+/* Search Section */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-input {
+  /* Flexbox styling */
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  &::placeholder {
+    color: #bdbdbd;
+  }
+}
+
+.search-status {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Transactions Section */
+.transactions-section {
+  overflow-x: auto;
+}
+
+.no-transactions {
+  /* Flexbox centered layout */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #999;
+  font-size: 1.1rem;
+  font-style: italic;
+  
+  p {
+    margin: 0;
+  }
+}
+
+/* Table Styling */
+.transactions-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-header {
+  /* Flexbox grid layout for header */
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr 1.5fr;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.table-row {
+  /* Flexbox grid layout for rows */
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr 1.5fr;
+  gap: 1rem;
+  padding: 1.2rem;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #f9f9f9;
+    transform: translateX(4px);
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+}
+
+.table-cell {
+  color: #2d3436;
+  font-size: 0.95rem;
+  
+  @media (max-width: 768px) {
+    &::before {
+      content: attr(data-label);
+      font-weight: 700;
+      color: #667eea;
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+  }
+  
+  &.amount {
+    text-align: right;
+    font-weight: 600;
+    
+    @media (max-width: 768px) {
+      text-align: left;
+    }
+  }
+}
+
+/* Category badge */
+.category-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Conditional styling for high expenses */
+.high-expense {
+  color: #ff6e7f;
+  font-weight: 700;
+  
+  &::before {
+    content: '⚠️ ';
+  }
+}
+
+.normal-expense {
+  color: #11998e;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

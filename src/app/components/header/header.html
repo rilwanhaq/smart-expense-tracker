@@ -1,0 +1,26 @@
+<!-- Header Section -->
+<!-- INTERPOLATION: {{ property }} displays component property values in the template -->
+<!-- DATE PIPE: | date formats the date object to readable string -->
+<header class="header">
+  <div class="header-container">
+    <!-- Logo Section -->
+    <div class="header-logo">
+      <!-- Interpolation Example: displays appLogo property -->
+      <span class="logo-icon">{{ appLogo }}</span>
+      <!-- Interpolation Example: displays appTitle property -->
+      <h1 class="app-title">{{ appTitle }}</h1>
+    </div>
+
+    <!-- User & Date Section -->
+    <div class="header-info">
+      <!-- Interpolation Example: displays userName property -->
+      <span class="user-name">Welcome, {{ userName }}</span>
+      <!-- 
+        DATE PIPE Example: | date:'fullDate' formats the date
+        Other format options: 'short', 'medium', 'long', 'shortDate', 'fullDate'
+      -->
+      <span class="current-date">{{ currentDate | date:'fullDate' }}</span>
+    </div>
+  </div>
+</header>
+

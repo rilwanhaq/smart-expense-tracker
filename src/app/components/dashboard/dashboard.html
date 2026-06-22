@@ -1,0 +1,127 @@
+<!-- Dashboard Section -->
+<div class="dashboard">
+  <!-- Summary Cards Section -->
+  <section class="cards-section">
+    <h2 class="section-title">Financial Summary</h2>
+    
+    <!-- 
+      *ngFor: Loop through cardData array
+      let card: create local variable for current card
+      [title], [amount], [color]: PROPERTY BINDING passes data to child component
+      (cardClicked): EVENT BINDING receives event from child component
+    -->
+    <div class="cards-grid">
+      <app-card
+        *ngFor="let card of cardData"
+        [title]="card.title"
+        [amount]="card.amount"
+        [color]="card.color"
+        (cardClicked)="onCardClick($event)"
+      ></app-card>
+    </div>
+
+    <!-- Display selected card -->
+    <!-- *ngIf: Conditional rendering - shows only when selectedCard has value -->
+    <div *ngIf="selectedCard" class="selected-card-info">
+      <!-- Interpolation: displays selected card name -->
+      <p>Selected Card: {{ selectedCard }}</p>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section class="search-section">
+    <h2 class="section-title">Search Transactions</h2>
+    
+    <div class="search-container">
+      <!-- 
+        TWO-WAY BINDING: [(ngModel)]="searchText" 
+        Syncs the input value with the component property
+        Automatically calls onSearchChange when user types
+      -->
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search transactions by title or category..."
+        [(ngModel)]="searchText"
+        (input)="onSearchChange()"
+      />
+      
+      <!-- Display search status -->
+      <!-- Interpolation: shows current search term -->
+      <p class="search-status">
+        {{ searchText ? 'Searching for: ' + searchText : 'All transactions' }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Transactions Section -->
+  <section class="transactions-section">
+    <h2 class="section-title">Recent Transactions</h2>
+
+    <!-- 
+      *ngIf: Show message if no transactions found
+      Opposite condition: !(condition) or use else block
+    -->
+    <div *ngIf="filteredTransactions.length === 0" class="no-transactions">
+      <p>No transactions found</p>
+    </div>
+
+    <!-- 
+      Transactions table
+      *ngIf: Show table only if transactions exist
+    -->
+    <div *ngIf="filteredTransactions.length > 0" class="transactions-table">
+      <div class="table-header">
+        <div class="table-cell">Title</div>
+        <div class="table-cell">Category</div>
+        <div class="table-cell">Date</div>
+        <div class="table-cell amount">Amount</div>
+      </div>
+
+      <!-- 
+        *ngFor: Loop through filteredTransactions array
+        let transaction: create local variable
+        let i = index: get current index (optional)
+      -->
+      <div
+        *ngFor="let transaction of filteredTransactions; let i = index"
+        class="table-row"
+        [attr.data-index]="i"
+      >
+        <!-- Title cell -->
+        <!-- Interpolation: displays transaction title -->
+        <div class="table-cell">{{ transaction.title }}</div>
+
+        <!-- Category cell -->
+        <!-- Interpolation: displays transaction category -->
+        <div class="table-cell">
+          <span class="category-badge">{{ transaction.category }}</span>
+        </div>
+
+        <!-- Date cell -->
+        <!-- 
+          DATE PIPE: | date:'short' formats the date
+          Other options: 'short', 'medium', 'long', 'shortDate', 'fullDate'
+        -->
+        <div class="table-cell">{{ transaction.date | date:'short' }}</div>
+
+        <!-- Amount cell -->
+        <!-- 
+          CONDITIONAL STYLING: [ngClass] applies class based on condition
+          If amount > 5000: applies 'high-expense' class
+          Otherwise: applies 'normal-expense' class
+          
+          CURRENCY PIPE: | currency:'INR':'₹' formats as currency
+          Other options: 'USD':'\$', 'EUR':'€'
+        -->
+        <div
+          class="table-cell amount"
+          [ngClass]="isHighExpense(transaction.amount) ? 'high-expense' : 'normal-expense'"
+        >
+          {{ transaction.amount | currency:'INR':'₹':'1.0-0' }}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+

@@ -1,0 +1,85 @@
+/* Sidebar Component Styles */
+/* Demonstrates: Flexbox, Border radius, Box shadow, Hover effects, Transitions */
+
+.sidebar {
+  /* Flexbox container */
+  background: linear-gradient(180deg, #2d3436 0%, #1e272e 100%);
+  color: white;
+  width: 250px;
+  height: 100vh;
+  padding: 2rem 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  
+  /* Responsive: hide on mobile, use hamburger menu */
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+  }
+}
+
+.nav-menu {
+  /* Flexbox column layout for menu items */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+}
+
+.menu-item-wrapper {
+  padding: 0 1rem;
+}
+
+.menu-item {
+  /* Flexbox for icon and label alignment */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(5px);
+  }
+  
+  /* Active state styling */
+  &.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transform: translateX(5px);
+  }
+}
+
+.menu-icon {
+  font-size: 1.5rem;
+  min-width: 1.5rem;
+}
+
+.menu-label {
+  font-weight: 500;
+  white-space: nowrap;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

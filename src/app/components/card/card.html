@@ -1,0 +1,29 @@
+<!-- Card Component -->
+<!-- 
+  PROPERTY BINDING: [ngClass] applies CSS classes dynamically
+  EVENT BINDING: (click) listens to click event
+  INTERPOLATION: {{ }} displays component values
+-->
+<div 
+  class="card"
+  [ngClass]="'card-' + color"
+  (click)="onCardClick()"
+>
+  <!-- Card Header -->
+  <div class="card-header">
+    <!-- Interpolation: displays title input -->
+    <h3 class="card-title">{{ title }}</h3>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <!-- Interpolation: displays amount input with currency symbol -->
+    <p class="card-amount">₹{{ amount | number:'1.0-0' }}</p>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <small class="card-hint">Click to select</small>
+  </div>
+</div>
+

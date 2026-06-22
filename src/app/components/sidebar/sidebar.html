@@ -1,0 +1,32 @@
+<!-- Sidebar Navigation -->
+<!-- 
+  *ngFor: Loop directive - repeats template for each item in array
+  Syntax: *ngFor="let item of array; let i = index"
+  Properties available: item, $index, $first, $last, $even, $odd
+-->
+<aside class="sidebar">
+  <nav class="nav-menu">
+    <!-- 
+      *ngFor Loop - iterates through menuItems array
+      let item: creates local variable for current item
+      trackBy is optional performance optimization (tracks by id)
+    -->
+    <div *ngFor="let item of menuItems" class="menu-item-wrapper">
+      <!-- 
+        EVENT BINDING: (click)="onMenuClick(item)" listens to click event
+        [ngClass]: Conditional class binding - applies 'active' class when condition is true
+      -->
+      <button
+        class="menu-item"
+        [class.active]="activeMenuId === item.id"
+        (click)="onMenuClick(item)"
+      >
+        <!-- Interpolation: displays icon -->
+        <span class="menu-icon">{{ item.icon }}</span>
+        <!-- Interpolation: displays menu name -->
+        <span class="menu-label">{{ item.name }}</span>
+      </button>
+    </div>
+  </nav>
+</aside>
+
