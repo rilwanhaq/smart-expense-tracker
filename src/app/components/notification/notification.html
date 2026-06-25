@@ -1,0 +1,92 @@
+<!-- Notification Component -->
+<!-- 
+  Dumb Component with @Output()
+  
+  Key Features:
+  - Displays notification messages
+  - Event binding: (click)="handleClear()"
+  - Emits events to parent via @Output()
+  - Shows pending notification count
+  
+  Parent Usage:
+  <app-notification
+    [message]="'Expense saved successfully'"
+    [type]="'success'"
+    [pendingCount]="3"
+    (clearNotifications)="onNotificationsCleared($event)"
+    (notificationDismissed)="onDismissed($event)"
+  ></app-notification>
+  
+  Parent Handler:
+  onNotificationsCleared(message: string): void {
+    console.log(message);  // "Cleared 3 notifications"
+    // Update parent state
+  }
+-->
+
+<div 
+  *ngIf="visible" 
+  class="notification-wrapper"
+  [ngClass]="getNotificationClass()"
+>
+  
+  <!-- Notification Container -->
+  <div class="notification-box">
+    
+    <!-- Icon -->
+    <span class="notification-icon">
+      {{ getIcon() }}
+    </span>
+
+    <!-- Message Content -->
+    <div class="notification-content">
+      <p class="notification-message">{{ message }}</p>
+      
+      <!-- Pending Count Badge -->
+      <span class="pending-badge">
+        {{ getPendingCountText() }}
+      </span>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="notification-actions">
+      
+      <!-- Clear Button -->
+      <!-- 
+        Event Binding: (click)="handleClear()"
+        
+        When user clicks:
+        1. handleClear() method executes
+        2. this.clearNotifications.emit() fires
+        3. Event travels UP to parent
+        4. Parent's (clearNotifications)="..." handler runs
+        
+        This is CHILD → PARENT communication
+      -->
+      <button 
+        class="btn-action clear-btn"
+        (click)="handleClear()"
+        title="Clear all notifications"
+      >
+        Clear All
+      </button>
+
+      <!-- Close Button -->
+      <!-- 
+        Event Binding: (click)="dismiss()"
+        Emits notificationDismissed event to parent
+      -->
+      <button 
+        *ngIf="showClose"
+        class="btn-close"
+        (click)="dismiss()"
+        title="Dismiss this notification"
+      >
+        ✕
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

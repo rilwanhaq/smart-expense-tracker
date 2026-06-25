@@ -1,0 +1,29 @@
+<!-- Summary Card Template -->
+<!-- 
+  This template receives all its data via @Input() properties.
+  It has NO logic or data of its own - purely presentational (Dumb Component)
+-->
+
+<div class="summary-card" [ngClass]="'card-' + color">
+  <!-- Card Icon -->
+  <div class="card-icon">{{ icon }}</div>
+
+  <!-- Card Title -->
+  <div class="card-title">{{ title }}</div>
+
+  <!-- Card Amount with dynamic styling -->
+  <!-- 
+    [ngClass]: Conditionally apply CSS class based on isHighAmount()
+    If amount > 5000 → class="high-amount" (highlighted in red)
+    Otherwise → class="normal-amount" (normal green)
+  -->
+  <div class="card-amount" [ngClass]="getAmountClass()">
+    ₹{{ formatAmount() }}
+  </div>
+
+  <!-- Card Footer with info -->
+  <div class="card-footer">
+    <small *ngIf="isHighAmount()" class="warning">⚠️ High Amount</small>
+    <small *ngIf="!isHighAmount()" class="normal">✓ Normal Amount</small>
+  </div>
+</div>

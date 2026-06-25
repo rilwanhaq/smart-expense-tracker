@@ -1,0 +1,108 @@
+<!-- Recent Transactions Component -->
+<!-- 
+  Smart Component that manages transaction data
+  Uses *ngFor to loop and creates child components
+  
+  Parent-Child Communication Flow:
+  1. Parent passes: [transactions]="transactionArray"
+  2. This component receives via @Input()
+  3. This component loops with *ngFor
+  4. For each transaction, creates <app-transaction-item>
+  5. Passes data via property binding: [title], [amount], [category], [date]
+  6. Child components (TransactionItem) display the data
+-->
+
+<div class="recent-transactions-container">
+  
+  <!-- Header Section -->
+  <div class="transactions-header">
+    <h2 class="section-title">Recent Transactions</h2>
+    
+    <!-- Statistics -->
+    <div class="transaction-stats">
+      <div class="stat-item">
+        <span class="stat-label">Total:</span>
+        <span class="stat-value">{{ displayedTransactions.length }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">High Expense:</span>
+        <span class="stat-value alert">{{ getHighExpenseCount() }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Total Amount:</span>
+        <span class="stat-value">₹{{ getTotalAmount() | number:'1.0-0' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sort Controls -->
+  <div class="sort-controls">
+    <button 
+      class="sort-btn"
+      [class.active]="sortBy === 'date'"
+      (click)="sortTransactions('date')"
+    >
+      Sort by Date
+    </button>
+    <button 
+      class="sort-btn"
+      [class.active]="sortBy === 'amount'"
+      (click)="sortTransactions('amount')"
+    >
+      Sort by Amount
+    </button>
+  </div>
+
+  <!-- Empty State -->
+  <!-- 
+    *ngIf: Show this message if NO transactions exist
+    Demonstrates conditional rendering
+  -->
+  <div *ngIf="!hasTransactions()" class="no-transactions">
+    <p>📭 No transactions found</p>
+    <small>Start adding expenses to see them here</small>
+  </div>
+
+  <!-- Transactions List -->
+  <!-- 
+    PARENT-CHILD COMMUNICATION DEMONSTRATION:
+    
+    Smart Component (This) passes data to Dumb Components (TransactionItem)
+    using property binding:
+    
+    *ngFor: Loops through transactions array
+    let transaction: Creates local variable for each item
+    
+    Property Binding (@Input):
+    [title]="transaction.title"       → TransactionItem receives title
+    [amount]="transaction.amount"     → TransactionItem receives amount
+    [category]="transaction.category" → TransactionItem receives category
+    [date]="transaction.date"         → TransactionItem receives date
+    
+    TransactionItem is a DUMB component that just displays what it receives.
+    It has NO logic, NO services, NO @Input processing.
+    It's 100% reusable and testable.
+  -->
+  <div *ngIf="hasTransactions()" class="transactions-list">
+    
+    <!-- 
+      Loop through transactions and create child component for each
+      Each TransactionItem is a separate component instance
+    -->
+    <app-transaction-item
+      *ngFor="let transaction of displayedTransactions; let i = index"
+      [title]="transaction.title"
+      [amount]="transaction.amount"
+      [category]="transaction.category"
+      [date]="transaction.date"
+      [attr.data-index]="i"
+    ></app-transaction-item>
+    
+  </div>
+
+  <!-- Footer Info -->
+  <div *ngIf="hasTransactions()" class="transactions-footer">
+    <small>Most Recent: {{ getMostRecentTransaction()?.title || 'N/A' }} on {{ getMostRecentTransaction()?.date | date:'short' }}</small>
+  </div>
+
+</div>

@@ -1,0 +1,55 @@
+<!-- Transaction Item Template -->
+<!-- 
+  Displays a single transaction row
+  All data comes from parent via @Input()
+  
+  Parent Component passes:
+  [title]="transaction.title"
+  [amount]="transaction.amount"
+  [category]="transaction.category"
+  [date]="transaction.date"
+-->
+
+<div class="transaction-item" [ngClass]="getExpenseClass()">
+  
+  <!-- Category Icon -->
+  <div class="transaction-icon">
+    {{ getCategoryIcon() }}
+  </div>
+
+  <!-- Transaction Details -->
+  <div class="transaction-details">
+    <!-- Title -->
+    <div class="transaction-title">{{ title }}</div>
+    
+    <!-- Category Badge -->
+    <div class="transaction-meta">
+      <span class="category-badge" [ngClass]="getCategoryColor()">
+        {{ category }}
+      </span>
+      
+      <!-- Date with Date Pipe -->
+      <!-- 
+        DATE PIPE: | date:'short'
+        Formats date to: "6/22/26"
+      -->
+      <span class="transaction-date">
+        {{ date | date:'short' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Transaction Amount with Currency Pipe -->
+  <!-- 
+    CURRENCY PIPE: | currency:'INR':'₹':'1.0-0'
+    Formats amount to: "₹3,500"
+    
+    ngClass: Conditionally apply 'high-expense' class if amount > 5000
+    This highlights expensive transactions in red/yellow
+  -->
+  <div class="transaction-amount" [ngClass]="getExpenseClass()">
+    <span *ngIf="isHighExpense()" class="warning-icon">⚠️</span>
+    {{ amount | currency:'INR':'₹':'1.0-0' }}
+  </div>
+
+</div>

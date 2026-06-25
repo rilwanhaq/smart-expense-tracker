@@ -1,0 +1,154 @@
+/* Transaction Item Component Styles */
+
+.transaction-item {
+  /* Flexbox horizontal layout for transaction row */
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.2rem;
+  border-bottom: 1px solid #f0f0f0;
+  
+  /* Smooth transition for hover effects */
+  transition: all 0.2s ease;
+  
+  /* Hover effect: highlight row */
+  &:hover {
+    background-color: #f9f9f9;
+    padding-left: 1.5rem;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Conditional styling based on amount */
+
+/* High expenses (> ₹5000) - Alert styling */
+.high-expense {
+  background-color: rgba(255, 107, 107, 0.05);
+  
+  .transaction-amount {
+    color: #ff6b6b;
+    font-weight: 700;
+  }
+}
+
+/* Normal expenses - Default styling */
+.normal-expense {
+  background-color: transparent;
+  
+  .transaction-amount {
+    color: #11998e;
+  }
+}
+
+/* Transaction Icon */
+.transaction-icon {
+  font-size: 1.5rem;
+  min-width: 2rem;
+  text-align: center;
+}
+
+/* Transaction Details Section */
+.transaction-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Transaction Title */
+.transaction-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2d3436;
+}
+
+/* Transaction Meta (Category and Date) */
+.transaction-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.85rem;
+}
+
+/* Category Badge */
+.category-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Category Colors */
+.category-food {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #f57c00;
+}
+
+.category-utilities {
+  background-color: rgba(33, 150, 243, 0.2);
+  color: #1976d2;
+}
+
+.category-entertainment {
+  background-color: rgba(156, 39, 176, 0.2);
+  color: #7b1fa2;
+}
+
+.category-travel {
+  background-color: rgba(0, 150, 136, 0.2);
+  color: #00695c;
+}
+
+.category-shopping {
+  background-color: rgba(233, 30, 99, 0.2);
+  color: #c2185b;
+}
+
+.category-health {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #388e3c;
+}
+
+.category-other {
+  background-color: rgba(158, 158, 158, 0.2);
+  color: #5e5e5e;
+}
+
+/* Transaction Date */
+.transaction-date {
+  color: #999;
+}
+
+/* Transaction Amount */
+.transaction-amount {
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 100px;
+  text-align: right;
+  
+  .warning-icon {
+    margin-right: 0.3rem;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .transaction-item {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .transaction-meta {
+    flex-wrap: wrap;
+  }
+
+  .transaction-amount {
+    min-width: 80px;
+  }
+}

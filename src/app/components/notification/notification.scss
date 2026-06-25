@@ -1,0 +1,252 @@
+/* Notification Component Styles */
+
+.notification-wrapper {
+  /* Sticky notification bar */
+  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  /* Animation on appearance */
+  animation: slideInDown 0.3s ease;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutUp {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* NOTIFICATION BOX */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.notification-box {
+  /* Flexbox horizontal layout */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  
+  /* Smooth transitions */
+  transition: all 0.2s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* NOTIFICATION TYPES - Different Colors */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+/* Success Notification */
+.notification-success {
+  background: linear-gradient(135deg, rgba(46, 213, 115, 0.1) 0%, rgba(46, 213, 115, 0.05) 100%);
+  border-left: 4px solid #2ed573;
+  
+  .notification-icon {
+    color: #2ed573;
+  }
+  
+  .notification-message {
+    color: #0b5f2f;
+  }
+  
+  .clear-btn {
+    background-color: #2ed573;
+    
+    &:hover {
+      background-color: #27ae60;
+    }
+  }
+}
+
+/* Error Notification */
+.notification-error {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+  border-left: 4px solid #ff6b6b;
+  
+  .notification-icon {
+    color: #ff6b6b;
+  }
+  
+  .notification-message {
+    color: #c33333;
+  }
+  
+  .clear-btn {
+    background-color: #ff6b6b;
+    
+    &:hover {
+      background-color: #e63946;
+    }
+  }
+}
+
+/* Warning Notification */
+.notification-warning {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+  border-left: 4px solid #ffc107;
+  
+  .notification-icon {
+    color: #f57c00;
+  }
+  
+  .notification-message {
+    color: #d97706;
+  }
+  
+  .clear-btn {
+    background-color: #ffc107;
+    
+    &:hover {
+      background-color: #ff9800;
+    }
+  }
+}
+
+/* Info Notification */
+.notification-info {
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(33, 150, 243, 0.05) 100%);
+  border-left: 4px solid #2196f3;
+  
+  .notification-icon {
+    color: #2196f3;
+  }
+  
+  .notification-message {
+    color: #0d47a1;
+  }
+  
+  .clear-btn {
+    background-color: #2196f3;
+    
+    &:hover {
+      background-color: #1976d2;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* NOTIFICATION ICON */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.notification-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* NOTIFICATION CONTENT */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.notification-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.notification-message {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.pending-badge {
+  font-size: 0.8rem;
+  color: #999;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* ACTION BUTTONS */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.notification-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Clear All Button */
+.btn-action {
+  /* Reset button styles */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  
+  /* Transitions */
+  transition: all 0.2s ease;
+  
+  /* Hover effect */
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Close Button */
+.btn-close {
+  /* Reset button styles */
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #999;
+  padding: 0.2rem;
+  
+  /* Transitions */
+  transition: all 0.2s ease;
+  
+  /* Hover effect */
+  &:hover {
+    color: #333;
+    transform: scale(1.2);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* RESPONSIVE DESIGN */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .notification-box {
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .notification-icon {
+    font-size: 1.2rem;
+  }
+
+  .notification-message {
+    font-size: 0.9rem;
+  }
+
+  .notification-actions {
+    flex-direction: column;
+  }
+
+  .btn-action {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+  }
+}

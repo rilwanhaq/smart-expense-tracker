@@ -1,15 +1,53 @@
 <!-- Dashboard Section -->
 <div class="dashboard">
-  <!-- Summary Cards Section -->
+
+  <!-- Notification Banner -->
+  <!-- 
+    Displays notification messages
+    Child component emits @Output events that this component handles
+  -->
+  <div class="notifications-container">
+    <app-notification
+      *ngFor="let notification of notifications"
+      [message]="notification.message"
+      [type]="notification.type"
+      [showClose]="notification.showClose"
+      [autoDismiss]="notification.autoDismiss"
+      [pendingCount]="notification.pendingCount"
+      (clearNotifications)="onNotificationsCleared($event)"
+      (notificationDismissed)="onNotificationDismissed($event)"
+      (actionTriggered)="onNotificationAction($event)"
+    ></app-notification>
+  </div>
+
+  <!-- User Profile Section (MILESTONE 2) -->
+  <!-- 
+    Profile Component (Dumb)
+    Receives all data via @Input() properties
+    No local state, no services, just displays
+    
+    Parent passes:
+    - [name], [email], [designation], [profileImage]
+    - [joinDate], [transactionCount], [totalSpending]
+    
+    Each @Input maps to @Input property in Profile component
+  -->
+  <section class="profile-section">
+    <app-profile
+      [name]="profileData.name"
+      [email]="profileData.email"
+      [designation]="profileData.designation"
+      [profileImage]="profileData.profileImage"
+      [joinDate]="profileData.joinDate"
+      [transactionCount]="profileData.transactionCount"
+      [totalSpending]="profileData.totalSpending"
+    ></app-profile>
+  </section>
+
+  <!-- Milestone 1: Summary Cards Section (Original) -->
   <section class="cards-section">
     <h2 class="section-title">Financial Summary</h2>
     
-    <!-- 
-      *ngFor: Loop through cardData array
-      let card: create local variable for current card
-      [title], [amount], [color]: PROPERTY BINDING passes data to child component
-      (cardClicked): EVENT BINDING receives event from child component
-    -->
     <div class="cards-grid">
       <app-card
         *ngFor="let card of cardData"
@@ -20,12 +58,70 @@
       ></app-card>
     </div>
 
-    <!-- Display selected card -->
-    <!-- *ngIf: Conditional rendering - shows only when selectedCard has value -->
     <div *ngIf="selectedCard" class="selected-card-info">
-      <!-- Interpolation: displays selected card name -->
       <p>Selected Card: {{ selectedCard }}</p>
     </div>
+  </section>
+
+  <!-- MILESTONE 2: Summary Cards Section (New Pattern) -->
+  <!-- 
+    Demonstrates reusable SummaryCard components (Dumb)
+    Each receives title, amount, color, and icon via @Input()
+    Smart component loops and passes data
+    Child components just display (no logic)
+  -->
+  <section class="summary-section">
+    <h2 class="section-title">Summary Cards (Reusable Components)</h2>
+    
+    <div class="summary-grid">
+      <!-- 
+        Parent-Child Communication via @Input():
+        1. Dashboard has summaryCards array
+        2. *ngFor loops through each card
+        3. [title], [amount], [color], [icon] bind to child @Input properties
+        4. SummaryCard component receives and displays the data
+        5. Each component instance is independent and reusable
+      -->
+      <app-summary-card
+        *ngFor="let card of summaryCards"
+        [title]="card.title"
+        [amount]="card.amount"
+        [color]="card.color"
+        [icon]="card.icon"
+      ></app-summary-card>
+    </div>
+  </section>
+
+  <!-- MILESTONE 2: Recent Transactions Section -->
+  <!-- 
+    RecentTransactions Component (Smart parent component)
+    Receives transactions array via @Input()
+    
+    Smart Component Responsibilities:
+    - Manages transaction data
+    - Implements sorting/filtering logic
+    - Handles lifecycle hooks
+    - Loops through transactions internally
+    
+    Then RecentTransactions creates TransactionItem children
+    for each transaction, creating nested component hierarchy:
+    
+    Dashboard (Smart) → RecentTransactions (Smart parent)
+                          → TransactionItem (Dumb) × N
+    
+    Data Flow:
+    1. Dashboard gets transactions from ExpenseService
+    2. Passes [transactions]="this.transactions" to RecentTransactions
+    3. RecentTransactions receives via @Input()
+    4. RecentTransactions loops with *ngFor
+    5. Creates TransactionItem component for each
+    6. Passes transaction data to each child via property binding
+    7. TransactionItem displays the data (no logic)
+  -->
+  <section class="recent-transactions-section">
+    <app-recent-transactions
+      [transactions]="transactions"
+    ></app-recent-transactions>
   </section>
 
   <!-- Search Section -->
@@ -33,11 +129,6 @@
     <h2 class="section-title">Search Transactions</h2>
     
     <div class="search-container">
-      <!-- 
-        TWO-WAY BINDING: [(ngModel)]="searchText" 
-        Syncs the input value with the component property
-        Automatically calls onSearchChange when user types
-      -->
       <input
         type="text"
         class="search-input"
@@ -46,30 +137,20 @@
         (input)="onSearchChange()"
       />
       
-      <!-- Display search status -->
-      <!-- Interpolation: shows current search term -->
       <p class="search-status">
         {{ searchText ? 'Searching for: ' + searchText : 'All transactions' }}
       </p>
     </div>
   </section>
 
-  <!-- Transactions Section -->
+  <!-- Milestone 1: Transactions Table Section (Original) -->
   <section class="transactions-section">
-    <h2 class="section-title">Recent Transactions</h2>
+    <h2 class="section-title">Transactions Table (Original)</h2>
 
-    <!-- 
-      *ngIf: Show message if no transactions found
-      Opposite condition: !(condition) or use else block
-    -->
     <div *ngIf="filteredTransactions.length === 0" class="no-transactions">
       <p>No transactions found</p>
     </div>
 
-    <!-- 
-      Transactions table
-      *ngIf: Show table only if transactions exist
-    -->
     <div *ngIf="filteredTransactions.length > 0" class="transactions-table">
       <div class="table-header">
         <div class="table-cell">Title</div>
@@ -78,42 +159,19 @@
         <div class="table-cell amount">Amount</div>
       </div>
 
-      <!-- 
-        *ngFor: Loop through filteredTransactions array
-        let transaction: create local variable
-        let i = index: get current index (optional)
-      -->
       <div
         *ngFor="let transaction of filteredTransactions; let i = index"
         class="table-row"
         [attr.data-index]="i"
       >
-        <!-- Title cell -->
-        <!-- Interpolation: displays transaction title -->
         <div class="table-cell">{{ transaction.title }}</div>
 
-        <!-- Category cell -->
-        <!-- Interpolation: displays transaction category -->
         <div class="table-cell">
           <span class="category-badge">{{ transaction.category }}</span>
         </div>
 
-        <!-- Date cell -->
-        <!-- 
-          DATE PIPE: | date:'short' formats the date
-          Other options: 'short', 'medium', 'long', 'shortDate', 'fullDate'
-        -->
         <div class="table-cell">{{ transaction.date | date:'short' }}</div>
 
-        <!-- Amount cell -->
-        <!-- 
-          CONDITIONAL STYLING: [ngClass] applies class based on condition
-          If amount > 5000: applies 'high-expense' class
-          Otherwise: applies 'normal-expense' class
-          
-          CURRENCY PIPE: | currency:'INR':'₹' formats as currency
-          Other options: 'USD':'\$', 'EUR':'€'
-        -->
         <div
           class="table-cell amount"
           [ngClass]="isHighExpense(transaction.amount) ? 'high-expense' : 'normal-expense'"
@@ -123,5 +181,6 @@
       </div>
     </div>
   </section>
+
 </div>
 

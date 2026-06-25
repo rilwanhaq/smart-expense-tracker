@@ -1,0 +1,91 @@
+<!-- Profile Component -->
+<!-- 
+  Dumb/Presentational Component
+  Receives all data via @Input() properties
+  No logic, just displays what it receives
+  100% reusable
+  
+  Demonstrates:
+  - @Input() properties (name, email, designation)
+  - Property binding for image: [src]="profileImage"
+  - String interpolation: {{ name }}, {{ email }}
+  - Conditional rendering: *ngIf
+  - CSS classes: [class]="className"
+-->
+
+<div class="profile-card">
+  
+  <!-- Profile Header with Avatar -->
+  <div class="profile-header">
+    <div class="avatar-container">
+      <!-- 
+        Property Binding for image:
+        [src]="profileImage"
+        Binds the src attribute to the profileImage @Input property
+      -->
+      <img 
+        [src]="profileImage" 
+        [alt]="name"
+        class="profile-avatar"
+        onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=default'"
+      >
+      
+      <!-- Member badge with dynamic color -->
+      <div class="member-badge" [class]="getMemberBadgeColor()">
+        <span class="badge-tier">{{ getMemberTier() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Information -->
+  <div class="profile-info">
+    
+    <!-- User Name - String Interpolation: {{ name }} -->
+    <h3 class="profile-name">{{ name }}</h3>
+    
+    <!-- Designation/Title -->
+    <p class="profile-designation">{{ designation }}</p>
+    
+    <!-- Email - with privacy masking -->
+    <p class="profile-email">
+      <span class="email-icon">✉️</span>
+      {{ getMaskedEmail() }}
+    </p>
+
+    <!-- Join Date - Date Pipe: {{ joinDate | date:'medium' }} -->
+    <p class="profile-meta">
+      <span class="meta-icon">📅</span>
+      Joined {{ joinDate | date:'MMMM d, yyyy' }}
+    </p>
+
+  </div>
+
+  <!-- Profile Stats -->
+  <div class="profile-stats">
+    
+    <div class="stat-box">
+      <span class="stat-number">{{ transactionCount }}</span>
+      <span class="stat-label">Transactions</span>
+    </div>
+
+    <div class="stat-divider"></div>
+
+    <div class="stat-box">
+      <span class="stat-number">₹{{ totalSpending | number:'1.0-0' }}</span>
+      <span class="stat-label">Total Spent</span>
+    </div>
+
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="profile-actions">
+    <button class="btn btn-primary">Edit Profile</button>
+    <button class="btn btn-secondary">View History</button>
+  </div>
+
+  <!-- Additional Info -->
+  <div class="profile-footer">
+    <small>Profile information is automatically synced across all devices</small>
+  </div>
+
+</div>

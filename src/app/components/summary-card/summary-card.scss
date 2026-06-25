@@ -1,0 +1,124 @@
+/* Summary Card Component Styles */
+/* Demonstrates: Flexbox, Border Radius, Box Shadow, Hover Effects, Transitions */
+
+.summary-card {
+  /* Flexbox column layout for vertical stacking */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  
+  padding: 2rem;
+  border-radius: 12px;
+  min-height: 180px;
+  text-align: center;
+  
+  /* Smooth transition for all property changes */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Box shadow for depth */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  /* Hover effect: lift card slightly */
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Color Variants */
+
+/* Green: Income */
+.card-green {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+/* Orange: Expenses */
+.card-orange {
+  background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+  color: white;
+}
+
+/* Blue: Savings */
+.card-blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Red: Alert/Warning */
+.card-red {
+  background: linear-gradient(135deg, #ee5a6f 0%, #ff9a76 100%);
+  color: white;
+}
+
+/* Purple: Custom */
+.card-purple {
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+  color: white;
+}
+
+/* Icon styling */
+.card-icon {
+  font-size: 3rem;
+  opacity: 0.9;
+}
+
+/* Title styling */
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+/* Amount styling */
+.card-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 0.5rem 0;
+  
+  /* Conditional styling based on amount */
+  &.high-amount {
+    color: #ffeb3b;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  &.normal-amount {
+    color: white;
+  }
+}
+
+/* Footer with warning/normal indicator */
+.card-footer {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  
+  .warning {
+    color: #ffeb3b;
+    font-weight: 600;
+  }
+  
+  .normal {
+    color: #4caf50;
+    font-weight: 600;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .summary-card {
+    min-height: 150px;
+    padding: 1.5rem;
+    
+    .card-amount {
+      font-size: 2rem;
+    }
+    
+    .card-icon {
+      font-size: 2.5rem;
+    }
+  }
+}

@@ -1,0 +1,227 @@
+/* Recent Transactions Component Styles */
+
+.recent-transactions-container {
+  /* Use flexbox for vertical layout */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  
+  /* Modern card styling */
+  background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  
+  /* Smooth transitions */
+  transition: all 0.3s ease;
+}
+
+/* Hover effect on the container */
+.recent-transactions-container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* HEADER SECTION */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.transactions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e8ecf1;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3436;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Transaction Statistics */
+.transaction-stats {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: center;
+  padding: 0.8rem 1.2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  border-left: 3px solid #11998e;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3436;
+}
+
+.stat-value.alert {
+  color: #ff6b6b;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* SORT CONTROLS */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.sort-controls {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+
+.sort-btn {
+  /* Remove default button styling */
+  background: none;
+  border: 2px solid #e8ecf1;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  
+  /* Smooth transitions */
+  transition: all 0.2s ease;
+  
+  /* Hover effect */
+  &:hover {
+    border-color: #11998e;
+    color: #11998e;
+    background-color: rgba(17, 153, 142, 0.05);
+  }
+  
+  /* Active state - when selected */
+  &.active {
+    background-color: #11998e;
+    color: white;
+    border-color: #11998e;
+    
+    /* Slight shadow for depth */
+    box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* EMPTY STATE */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.no-transactions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  border: 2px dashed #e8ecf1;
+  
+  p {
+    font-size: 1.2rem;
+    color: #999;
+    margin: 0 0 0.5rem 0;
+    font-weight: 500;
+  }
+  
+  small {
+    color: #bbb;
+    font-size: 0.9rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* TRANSACTIONS LIST */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid #e8ecf1;
+  overflow: hidden;
+  
+  /* Animation on list appearance */
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* FOOTER */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+.transactions-footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e8ecf1;
+  
+  small {
+    color: #999;
+    font-size: 0.85rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+/* RESPONSIVE DESIGN */
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .recent-transactions-container {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .transactions-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .transaction-stats {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .sort-controls {
+    flex-wrap: wrap;
+  }
+
+  .sort-btn {
+    flex: 1;
+    min-width: 100px;
+  }
+}
